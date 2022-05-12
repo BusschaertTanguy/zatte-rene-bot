@@ -80,4 +80,4 @@ client.on('messageCreate', ({ content, guild, member }) => {
 	});
 });
 
-client.login(token).then();
+client.login(token);
