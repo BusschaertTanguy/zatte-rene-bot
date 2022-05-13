@@ -74,7 +74,9 @@ client.on('messageCreate', ({ content, guild, member }) => {
 		const subscription = connection.subscribe(audioPlayer);
 
 		audioPlayer.on('stateChange', ((oldState, newState) => {
+			console.log('audio player state change');
 			if (oldState.status === AudioPlayerStatus.Playing && newState.status === AudioPlayerStatus.Idle) {
+				console.log('leaving channel');
 				audioPlayer.stop();
 				subscription.unsubscribe();
 				connection.destroy();
