@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
 const {
-	joinVoiceChannel, createAudioPlayer, createAudioResource, NoSubscriberBehavior, AudioPlayerStatus,
+	joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus,
 } = require('@discordjs/voice');
 
 dotenv.config();
@@ -57,14 +57,11 @@ client.on('messageCreate', ({ content, guild, member }) => {
 		}
 
 		const randomFilePath = `${soundDirectory}\\${randomFile}`;
+
+		console.log(`File: ${randomFilePath} selected`);
+
 		const resource = createAudioResource(randomFilePath);
-
-		const audioPlayer = createAudioPlayer({
-			behaviors: {
-				noSubscriber: NoSubscriberBehavior.Pause,
-			},
-		});
-
+		const audioPlayer = createAudioPlayer();
 		const connection = joinVoiceChannel({
 			guildId,
 			channelId,
