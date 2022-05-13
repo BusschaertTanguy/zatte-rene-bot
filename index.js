@@ -1,17 +1,14 @@
 const { Client, Intents } = require('discord.js');
-const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
 
 if (process.env.NODE_ENV !== 'production') {
-	dotenv.config({ override: true });
+	require('dotenv').config({ override: true });
 }
 
-const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES];
-
 const client = new Client({
-	intents,
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
 });
 
 client.on('messageCreate', ({ content, guild, member }) => {
