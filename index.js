@@ -56,7 +56,7 @@ client.on('messageCreate', ({ content, guild, member }) => {
 			return;
 		}
 
-		const randomFilePath = path.normalize(`${soundDirectory}\\${randomFile}`);
+		const randomFilePath = path.join(soundDirectory, randomFile);
 
 		console.log(`File: ${randomFilePath} selected`);
 
