@@ -13,7 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Copy SSH to server
+      - name: Stop sevice
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: "systemctl stop zatte-rene"
+      - name: Copy to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -23,3 +31,14 @@ jobs:
           rm: true
           source: "./"
           target: "/apps/zatte-rene"
+      - name: Install npm packages & Start service
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script:
+            "cd /apps/zatte-rene"
+            "npm i"
+            "sudo systemctl start zatte-rene"
