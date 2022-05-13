@@ -41,4 +41,4 @@ jobs:
           script: |
             cd /apps/zatte-rene
             npm i
-            sudo systemctl start zatte-rene
+            systemctl start zatte-rene
