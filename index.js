@@ -26,7 +26,16 @@ client.once('ready', () => {
 });
 
 client.on('messageCreate', ({ content, guild, member }) => {
-	if (!content.startsWith('!')) {
+	if (!content.startsWith('!rene')) {
+		return;
+	}
+
+	const guildId = guild.id;
+	const channelId = member.voice?.channel?.id;
+	const adapterCreator = guild.voiceAdapterCreator;
+
+	if (!channelId) {
+		console.log('Member should join a channel.');
 		return;
 	}
 
@@ -55,10 +64,6 @@ client.on('messageCreate', ({ content, guild, member }) => {
 				noSubscriber: NoSubscriberBehavior.Pause,
 			},
 		});
-
-		const guildId = guild.id;
-		const channelId = member.voice.channel.id;
-		const adapterCreator = guild.voiceAdapterCreator;
 
 		const connection = joinVoiceChannel({
 			guildId,
